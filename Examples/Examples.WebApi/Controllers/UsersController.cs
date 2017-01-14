@@ -116,7 +116,7 @@ namespace Examples.WebApi.Controllers
                 return InternalServerError(result.Error);
             }
 
-            return CreatedAtRoute("DefaultApi", new { userNo = userDto.UserNo }, result.Content);
+            return CreatedAtRoute("DefaultApi", new { userDto.UserNo }, result.Content);
         }
 
         [HttpDelete]
@@ -161,16 +161,16 @@ namespace Examples.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> PutUser(string userNo, UserDto userDto)
+        public async Task<IHttpActionResult> PutUser(UserDto userDto)
         {
-            if (string.IsNullOrEmpty(userNo) || userDto == null || userNo != userDto.UserNo)
+            if (userDto == null)
             {
                 return BadRequest();
             }
 
             var result = await Runner.Execute(() =>
             {
-                var user = db.Users.FirstOrDefault(p => p.UserNo == userNo);
+                var user = db.Users.FirstOrDefault(p => p.UserNo == userDto.UserNo);
                 if (user == null)
                 {
                     return 0;
@@ -185,7 +185,7 @@ namespace Examples.WebApi.Controllers
             {
                 if (result.Error is DbUpdateConcurrencyException)
                 {
-                    var isDeleted = db.Users.Count(p => p.UserNo == userNo) == 0;
+                    var isDeleted = db.Users.Count(p => p.UserNo == userDto.UserNo) == 0;
                     if (isDeleted)
                     {
                         return NotFound();
