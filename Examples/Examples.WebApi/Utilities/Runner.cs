@@ -3,8 +3,10 @@ namespace Examples.WebApi
 {
     using Infrastructures;
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
 
+    [ExcludeFromCodeCoverage]
     public static class Runner
     {
         public static async Task<ExecuteResult<T>> Execute<T>(Func<T> func)

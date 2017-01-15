@@ -1,8 +1,10 @@
 ﻿
 namespace Examples.WebApi.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
 
+    [ExcludeFromCodeCoverage]
     public class DefaultController : ApiController
     {
         private readonly IMessages messages;
@@ -19,12 +21,13 @@ namespace Examples.WebApi.Controllers
             return result.Content;
         }
     }
-
+    
     public interface IMessages
     {
         string Hello { get; }
     }
 
+    [ExcludeFromCodeCoverage]
     public class Messages : IMessages
     {
         public string Hello

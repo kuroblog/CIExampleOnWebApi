@@ -3,6 +3,7 @@ namespace Examples.WebApi.Repositories
 {
     using System;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     public interface IBasicRepository<T> where T : class, new()
@@ -24,6 +25,7 @@ namespace Examples.WebApi.Repositories
         int Delete(params object[] keys);
     }
 
+    [ExcludeFromCodeCoverage]
     public class BasicRepository<T> : IDisposable, IBasicRepository<T> where T : class, new()
     {
         #region IDisposable Implements

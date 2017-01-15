@@ -2,7 +2,9 @@
 namespace Examples.WebApi.Models
 {
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class ExampleDbContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
