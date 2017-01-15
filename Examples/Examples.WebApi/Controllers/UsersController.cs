@@ -3,6 +3,7 @@ namespace Examples.WebApi.Controllers
 {
     using Infrastructures;
     using Models;
+    using Repositories;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -15,14 +16,28 @@ namespace Examples.WebApi.Controllers
     {
         private ExampleDbContext db = new ExampleDbContext();
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
 
-            base.Dispose(disposing);
+        //    //base.Dispose(disposing);
+        //}
+
+        //private readonly IUserRepository userRepo;
+
+        //public UsersController(IUserRepository userRepo)
+        //{
+        //    this.userRepo = userRepo;
+        //}
+
+        private readonly DbContext context;
+
+        public UsersController(DbContext context)
+        {
+            this.context = context;
         }
 
         private IHttpActionResult Get<T>(ExecuteResult<T> result)
@@ -46,7 +61,11 @@ namespace Examples.WebApi.Controllers
         {
             var result = await Runner.Execute(() =>
             {
-                return db.Users.Select(UserDto.UserEntityParse);
+                //return userRepo.View.Select(UserDto.UserEntityParse);
+
+                return context.Set<UserEntity>().Select(UserDto.UserEntityParse);
+
+                //return db.Users.Select(UserDto.UserEntityParse);
             });
             return Get(result);
         }

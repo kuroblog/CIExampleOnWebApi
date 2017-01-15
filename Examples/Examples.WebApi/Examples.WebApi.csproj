@@ -114,14 +114,14 @@
     <Compile Include="Infrastructures\Ioc\BootstrapContainer.cs" />
     <Compile Include="Infrastructures\Ioc\WindsorDependencyResolver.cs" />
     <Compile Include="Infrastructures\Ioc\WindsorDependencyScope.cs" />
-    <Compile Include="Installers\MessagesInstaller.cs" />
+    <Compile Include="Installers\CustomInstaller.cs" />
     <Compile Include="Models\Configurations\UserEntityConfiguration.cs" />
     <Compile Include="Models\ExampleDbContext.cs" />
     <Compile Include="Models\UserEntity.cs" />
     <Compile Include="Infrastructures\ExecuteResult.cs" />
     <Compile Include="Models\DataTransferObjects\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IBasicRepository.cs" />
+    <Compile Include="Repositories\BasicRepository.cs" />
     <Compile Include="Utils\Runner.cs" />
   </ItemGroup>
   <ItemGroup>
