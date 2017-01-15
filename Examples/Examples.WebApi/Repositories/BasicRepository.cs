@@ -1,15 +1,27 @@
 ﻿
 namespace Examples.WebApi.Repositories
 {
-    using Models;
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
 
     public interface IBasicRepository<T> where T : class, new()
     {
         IQueryable<T> View { get; }
+
+        T Select(params object[] keys);
+
+        T Create();
+
+        int Insert(T entity);
+
+        int Update(T entity);
+
+        int Update(T entity, params object[] keys);
+
+        int Delete(T entity);
+
+        int Delete(params object[] keys);
     }
 
     public class BasicRepository<T> : IDisposable, IBasicRepository<T> where T : class, new()
@@ -17,42 +29,94 @@ namespace Examples.WebApi.Repositories
         #region IDisposable Implements
         protected virtual void Dispose(bool flag)
         {
-            //if (!flag)
-            //{
-            //    return;
-            //}
-
-            //db.Dispose();
+            if (flag)
+            {
+                context.Dispose();
+            }
         }
 
         public void Dispose()
         {
-            //Dispose(true);
-            //GC.SuppressFinalize(this);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
         #endregion
 
         #region IBasicRepository Implements
         public IQueryable<T> View
         {
-            get { return db.Set<T>(); }
+            get { return context.Set<T>(); }
         }
-        #endregion
 
-        private readonly DbContext db;
-
-        public BasicRepository(DbContext db)
+        public T Select(params object[] keys)
         {
-            this.db = db;
+            return context.Set<T>().Find(keys);
         }
-    }
 
-    public interface IUserRepository : IBasicRepository<UserEntity> { }
+        public T Create()
+        {
+            return context.Set<T>().Create();
+        }
 
-    public class UserRepository : BasicRepository<UserEntity>, IUserRepository
-    {
-        #region BasicRepository Implements
-        public UserRepository(DbContext db) : base(db) { }
+        public int Insert(T entity)
+        {
+            context.Set<T>().Add(entity);
+
+            return context.SaveChanges();
+            //return IsAutoCommit ? Context.SaveChanges() : 0;
+        }
+
+        public int Update(T entity)
+        {
+            var state = context.Entry(entity).State;
+            if (state != EntityState.Modified)
+            {
+                return 0;
+            }
+
+            return context.SaveChanges();
+            //return IsAutoCommit ? Context.SaveChanges() : 0;
+        }
+
+        public int Update(T entity, params object[] keys)
+        {
+            var original = Select(keys);
+            if (original == null)
+            {
+                return 0;
+            }
+
+            context.Entry(original).CurrentValues.SetValues(entity);
+
+            return Update(entity);
+        }
+
+        public int Delete(T entity)
+        {
+            context.Set<T>().Remove(entity);
+
+
+            return context.SaveChanges();
+            //return IsAutoCommit ? Context.SaveChanges() : 0;
+        }
+
+        public int Delete(params object[] keys)
+        {
+            var original = Select(keys);
+            if (original == null)
+            {
+                return 0;
+            }
+
+            return Delete(original);
+        }
         #endregion
+
+        private readonly DbContext context;
+
+        public BasicRepository(DbContext context)
+        {
+            this.context = context;
+        }
     }
 }

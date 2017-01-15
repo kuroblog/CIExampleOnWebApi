@@ -13,10 +13,12 @@ namespace Examples.WebApi.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            //container.Register(Component.For<IMessages>().ImplementedBy<Messages>().LifestylePerWebRequest());
             container.Register(Component.For<IMessages>().ImplementedBy<Messages>().LifestyleSingleton());
 
-            container.Register(Component.For<DbContext>().ImplementedBy<ExampleDbContext>().LifestylePerWebRequest());
+            //container.Register(Component.For<DbContext>().ImplementedBy<ExampleDbContext>().LifestylePerWebRequest());
             //container.Register(Component.For<DbContext>().ImplementedBy<ExampleDbContext>().LifestyleTransient());
+            container.Register(Component.For<DbContext>().ImplementedBy<ExampleDbContext>().LifestyleSingleton());
 
             container.Register(Component.For<IUserRepository>().ImplementedBy<UserRepository>().LifestyleTransient());
         }

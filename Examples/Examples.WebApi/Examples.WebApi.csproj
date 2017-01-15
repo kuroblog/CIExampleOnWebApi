@@ -122,7 +122,8 @@
     <Compile Include="Models\DataTransferObjects\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BasicRepository.cs" />
-    <Compile Include="Utils\Runner.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Utilities\Runner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
