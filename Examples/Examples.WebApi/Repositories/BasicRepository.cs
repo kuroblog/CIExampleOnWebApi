@@ -3,7 +3,6 @@ namespace Examples.WebApi.Repositories
 {
     using System;
     using System.Data.Entity;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     public interface IBasicRepository<T> where T : class, new()
@@ -16,16 +15,16 @@ namespace Examples.WebApi.Repositories
 
         int Insert(T entity);
 
-        int Update(T entity);
-
-        int Update(T entity, params object[] keys);
-
         int Delete(T entity);
 
         int Delete(params object[] keys);
+
+        int Update(T entity);
+
+        int Update(T entity, params object[] keys);
     }
 
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
     public class BasicRepository<T> : IDisposable, IBasicRepository<T> where T : class, new()
     {
         #region IDisposable Implements
@@ -68,6 +67,25 @@ namespace Examples.WebApi.Repositories
             //return IsAutoCommit ? Context.SaveChanges() : 0;
         }
 
+        public int Delete(T entity)
+        {
+            context.Set<T>().Remove(entity);
+
+            return context.SaveChanges();
+            //return IsAutoCommit ? Context.SaveChanges() : 0;
+        }
+
+        public int Delete(params object[] keys)
+        {
+            var original = Select(keys);
+            if (original == null)
+            {
+                return 0;
+            }
+
+            return Delete(original);
+        }
+
         public int Update(T entity)
         {
             var state = context.Entry(entity).State;
@@ -91,26 +109,6 @@ namespace Examples.WebApi.Repositories
             context.Entry(original).CurrentValues.SetValues(entity);
 
             return Update(entity);
-        }
-
-        public int Delete(T entity)
-        {
-            context.Set<T>().Remove(entity);
-
-
-            return context.SaveChanges();
-            //return IsAutoCommit ? Context.SaveChanges() : 0;
-        }
-
-        public int Delete(params object[] keys)
-        {
-            var original = Select(keys);
-            if (original == null)
-            {
-                return 0;
-            }
-
-            return Delete(original);
         }
         #endregion
 
