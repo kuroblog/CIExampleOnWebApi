@@ -7,11 +7,13 @@ namespace Examples.WebApi.Controllers
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Http;
 
+    [ExcludeFromCodeCoverage]
     public class UsersController : ApiController
     {
         //private ExampleDbContext db = new ExampleDbContext();

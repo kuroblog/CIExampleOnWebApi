@@ -3,7 +3,9 @@ namespace Examples.WebApi.Migrations
 {
     using Models;
     using System.Data.Entity.Migrations;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     internal sealed class Configuration : DbMigrationsConfiguration<ExampleDbContext>
     {
         public Configuration()

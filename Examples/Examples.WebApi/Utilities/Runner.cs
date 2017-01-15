@@ -6,7 +6,7 @@ namespace Examples.WebApi
     using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
 
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
     public static class Runner
     {
         public static async Task<ExecuteResult<T>> Execute<T>(Func<T> func)
