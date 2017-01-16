@@ -14,7 +14,13 @@ namespace Examples.WebApi.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
 
-        public ExampleDbContext() : base("name=ExampleDbContext") { }
+#if DEBUG
+        private const string connectionStringKey = "ExampleDbContext";
+#else
+        private const string connectionStringKey = "CiOnWebApiContext";
+#endif
+
+        public ExampleDbContext() : base($"name={connectionStringKey}") { }
 
         public DbSet<UserEntity> Users { get; set; }
     }
