@@ -7,10 +7,10 @@ namespace Examples.WebApi.Repositories
 
     public interface IUserRepository : IBasicRepository<UserEntity> { }
 
-    [ExcludeFromCodeCoverage]
     public class UserRepository : BasicRepository<UserEntity>, IUserRepository
     {
         #region BasicRepository Implements
+        [ExcludeFromCodeCoverage]
         public UserRepository(DbContext db) : base(db) { }
         #endregion
     }

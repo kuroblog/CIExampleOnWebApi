@@ -3,6 +3,7 @@ namespace Examples.WebApi.Repositories
 {
     using System;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     public interface IBasicRepository<T> where T : class, new()
@@ -28,6 +29,7 @@ namespace Examples.WebApi.Repositories
     public class BasicRepository<T> : IDisposable, IBasicRepository<T> where T : class, new()
     {
         #region IDisposable Implements
+        [ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool flag)
         {
             if (flag)
@@ -36,6 +38,7 @@ namespace Examples.WebApi.Repositories
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             Dispose(true);
@@ -86,6 +89,7 @@ namespace Examples.WebApi.Repositories
             return Delete(original);
         }
 
+        [ExcludeFromCodeCoverage]
         public int Update(T entity)
         {
             var state = context.Entry(entity).State;
@@ -98,6 +102,7 @@ namespace Examples.WebApi.Repositories
             //return IsAutoCommit ? Context.SaveChanges() : 0;
         }
 
+        [ExcludeFromCodeCoverage]
         public int Update(T entity, params object[] keys)
         {
             var original = Select(keys);

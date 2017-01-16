@@ -2,15 +2,13 @@
 namespace Examples.WebApi.Repositories.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Examples.WebApi.Repositories;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Models;
     using Moq;
+    using Repositories;
+    using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Linq;
 
     [TestClass]
     public class BasicRepository_Tests
@@ -142,9 +140,11 @@ namespace Examples.WebApi.Repositories.Tests
         //        UserName = "test999"
         //    };
 
-        //    var status = EntityState.Unchanged;
-        //    //mockDbContext.Setup(m => m.Entry(expected).State).Returns(() => status);
-        //    mockDbContext.SetupProperty(m => m.Entry(expected).State, status);
+        //    var mockTmp = new Mock<DbEntityEntry<UserEntity>>();
+        //    mockTmp.Setup(m => m.State).Returns(EntityState.Unchanged);
+
+        //    mockDbContext.Setup(m => m.Entry(expected).State).Returns(() => mockTmp.Object.State);
+        //    //mockDbContext.SetupProperty(m => m.Entry(expected).State, status);
 
         //    mockDbContext.Setup(m => m.SaveChanges()).Callback(() =>
         //    {
@@ -165,6 +165,20 @@ namespace Examples.WebApi.Repositories.Tests
         //{
         //    Assert.Fail();
         //}
+
+        [TestMethod]
+        public void View_Test_Successed()
+        {
+            var mockUsers = new Mock<DbSet<UserEntity>>();
+            mockUsers.As<IQueryable<UserEntity>>().Setup(m => m.GetEnumerator()).Returns(() => testItems.GetEnumerator());
+
+            mockDbContext.Setup(m => m.Set<UserEntity>()).Returns(() => mockUsers.Object);
+
+            var actual = testRepo.View;
+
+            Assert.IsNotNull(actual);
+            Assert.AreNotEqual(0, actual.ToList().Count());
+        }
 
         //[TestMethod()]
         //public void BasicRepository_Test()

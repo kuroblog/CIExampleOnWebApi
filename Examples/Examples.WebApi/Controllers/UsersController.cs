@@ -5,7 +5,6 @@ namespace Examples.WebApi.Controllers
     using Models;
     using Repositories;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;

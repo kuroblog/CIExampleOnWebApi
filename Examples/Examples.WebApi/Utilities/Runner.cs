@@ -3,7 +3,6 @@ namespace Examples.WebApi
 {
     using Infrastructures;
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
 
     //[ExcludeFromCodeCoverage]
