@@ -98,7 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -130,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\v-client.debug-package.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
