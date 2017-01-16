@@ -2,7 +2,9 @@
 namespace Examples.WebApi.Models
 {
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class ExampleDbContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
@@ -12,7 +14,13 @@ namespace Examples.WebApi.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
 
-        public ExampleDbContext() : base("name=ExampleDbContext") { }
+#if DEBUG
+        private const string connectionStringKey = "ExampleDbContext";
+#else
+        private const string connectionStringKey = "CiOnWebApiContext";
+#endif
+
+        public ExampleDbContext() : base($"name={connectionStringKey}") { }
 
         public DbSet<UserEntity> Users { get; set; }
     }

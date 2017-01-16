@@ -2,7 +2,9 @@
 namespace Examples.WebApi.Infrastructures
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class ExecuteResult<T>
     {
         public Guid Id { get; }

@@ -1,8 +1,10 @@
 ﻿
 namespace Examples.WebApi
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
 
+    [ExcludeFromCodeCoverage]
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)

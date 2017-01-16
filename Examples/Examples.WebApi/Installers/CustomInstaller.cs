@@ -8,7 +8,9 @@ namespace Examples.WebApi.Installers
     using Models;
     using Repositories;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class CustomInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)

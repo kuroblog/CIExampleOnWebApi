@@ -5,6 +5,7 @@ namespace Examples.WebApi
     using System;
     using System.Threading.Tasks;
 
+    //[ExcludeFromCodeCoverage]
     public static class Runner
     {
         public static async Task<ExecuteResult<T>> Execute<T>(Func<T> func)

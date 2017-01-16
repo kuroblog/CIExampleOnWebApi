@@ -3,6 +3,7 @@ namespace Examples.WebApi.Repositories
 {
     using System;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     public interface IBasicRepository<T> where T : class, new()
@@ -15,18 +16,20 @@ namespace Examples.WebApi.Repositories
 
         int Insert(T entity);
 
-        int Update(T entity);
-
-        int Update(T entity, params object[] keys);
-
         int Delete(T entity);
 
         int Delete(params object[] keys);
+
+        int Update(T entity);
+
+        int Update(T entity, params object[] keys);
     }
 
+    //[ExcludeFromCodeCoverage]
     public class BasicRepository<T> : IDisposable, IBasicRepository<T> where T : class, new()
     {
         #region IDisposable Implements
+        [ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool flag)
         {
             if (flag)
@@ -35,6 +38,7 @@ namespace Examples.WebApi.Repositories
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             Dispose(true);
@@ -66,35 +70,9 @@ namespace Examples.WebApi.Repositories
             //return IsAutoCommit ? Context.SaveChanges() : 0;
         }
 
-        public int Update(T entity)
-        {
-            var state = context.Entry(entity).State;
-            if (state != EntityState.Modified)
-            {
-                return 0;
-            }
-
-            return context.SaveChanges();
-            //return IsAutoCommit ? Context.SaveChanges() : 0;
-        }
-
-        public int Update(T entity, params object[] keys)
-        {
-            var original = Select(keys);
-            if (original == null)
-            {
-                return 0;
-            }
-
-            context.Entry(original).CurrentValues.SetValues(entity);
-
-            return Update(entity);
-        }
-
         public int Delete(T entity)
         {
             context.Set<T>().Remove(entity);
-
 
             return context.SaveChanges();
             //return IsAutoCommit ? Context.SaveChanges() : 0;
@@ -109,6 +87,33 @@ namespace Examples.WebApi.Repositories
             }
 
             return Delete(original);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public int Update(T entity)
+        {
+            var state = context.Entry(entity).State;
+            if (state != EntityState.Modified)
+            {
+                return 0;
+            }
+
+            return context.SaveChanges();
+            //return IsAutoCommit ? Context.SaveChanges() : 0;
+        }
+
+        [ExcludeFromCodeCoverage]
+        public int Update(T entity, params object[] keys)
+        {
+            var original = Select(keys);
+            if (original == null)
+            {
+                return 0;
+            }
+
+            context.Entry(original).CurrentValues.SetValues(entity);
+
+            return Update(entity);
         }
         #endregion
 

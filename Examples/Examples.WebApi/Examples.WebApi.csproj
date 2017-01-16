@@ -105,7 +105,6 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\UserEntitiesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Extensions\ApiControllerExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -115,7 +114,11 @@
     <Compile Include="Infrastructures\Ioc\WindsorDependencyResolver.cs" />
     <Compile Include="Infrastructures\Ioc\WindsorDependencyScope.cs" />
     <Compile Include="Installers\CustomInstaller.cs" />
-    <Compile Include="Models\Configurations\UserEntityConfiguration.cs" />
+    <Compile Include="Migrations\201701142037077_InitialCreate.cs" />
+    <Compile Include="Migrations\201701142037077_InitialCreate.Designer.cs">
+      <DependentUpon>201701142037077_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExampleDbContext.cs" />
     <Compile Include="Models\UserEntity.cs" />
     <Compile Include="Infrastructures\ExecuteResult.cs" />
@@ -136,7 +139,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Migrations\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Models\Configurations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701142037077_InitialCreate.resx">
+      <DependentUpon>201701142037077_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
