@@ -92,6 +92,7 @@ namespace Examples.WebApi.Repositories
         [ExcludeFromCodeCoverage]
         public int Update(T entity)
         {
+            // TODO: 使用moq来模拟的时候出错，not supported
             var state = context.Entry(entity).State;
             if (state != EntityState.Modified)
             {
@@ -113,6 +114,7 @@ namespace Examples.WebApi.Repositories
 
             context.Entry(original).CurrentValues.SetValues(entity);
 
+            // TODO: 该函数没能通过moq来模拟
             return Update(entity);
         }
         #endregion

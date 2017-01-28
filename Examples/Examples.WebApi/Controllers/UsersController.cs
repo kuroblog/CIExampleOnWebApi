@@ -12,7 +12,7 @@ namespace Examples.WebApi.Controllers
     using System.Threading.Tasks;
     using System.Web.Http;
 
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
     public class UsersController : ApiController
     {
         //private ExampleDbContext db = new ExampleDbContext();
@@ -62,6 +62,8 @@ namespace Examples.WebApi.Controllers
         {
             var result = await Runner.Execute(() =>
             {
+                //return userRepo.View;
+
                 return userRepo.View.Select(UserDto.UserEntityParse);
 
                 // 使用注入的 DbContext 来进行操作
@@ -78,7 +80,7 @@ namespace Examples.WebApi.Controllers
         {
             if (string.IsNullOrEmpty(userNo))
             {
-                return BadRequest();
+                return BadRequest(nameof(userNo));
             }
 
             var result = await Runner.Execute(() =>
@@ -96,7 +98,7 @@ namespace Examples.WebApi.Controllers
         {
             if (string.IsNullOrEmpty(userName))
             {
-                return BadRequest();
+                return BadRequest(nameof(userName));
             }
 
             var result = await Runner.Execute(() =>
@@ -114,7 +116,7 @@ namespace Examples.WebApi.Controllers
         {
             if (userDto == null)
             {
-                return BadRequest();
+                return BadRequest(nameof(userDto));
             }
 
             var result = await Runner.Execute(() =>
@@ -159,7 +161,7 @@ namespace Examples.WebApi.Controllers
         {
             if (string.IsNullOrEmpty(userNo))
             {
-                return BadRequest();
+                return BadRequest(nameof(userNo));
             }
 
             var result = await Runner.Execute(() =>
@@ -208,7 +210,7 @@ namespace Examples.WebApi.Controllers
         {
             if (userDto == null)
             {
-                return BadRequest();
+                return BadRequest(nameof(userDto));
             }
 
             var result = await Runner.Execute(() =>
