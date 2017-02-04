@@ -17,6 +17,7 @@ namespace Examples.WebApi.Controllers
     {
         //private ExampleDbContext db = new ExampleDbContext();
 
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

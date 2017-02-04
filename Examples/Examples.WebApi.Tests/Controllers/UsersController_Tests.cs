@@ -1,20 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Examples.WebApi.Controllers;
-
+﻿
 namespace Examples.WebApi.Controllers.Tests
 {
+    using Controllers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Examples.WebApi.Controllers;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Models;
     using Moq;
     using Repositories;
-    using Models;
-    using System.Data.Entity;
-    using System.Linq.Expressions;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
     using System.Web.Http.Results;
 
     [TestClass]
@@ -50,7 +45,17 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.AreEqual(testItems.Count, actualResult.Content.Count());
         }
 
-        [TestMethod()]
+        [TestMethod]
+        public void GetUsers_Test_Exception()
+        {
+            mockUserRepo.Setup(m => m.View).Callback(() => { throw new Exception("mock test"); });
+
+            var actual = controller.GetUsers().Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(ExceptionResult));
+        }
+
+        [TestMethod]
         public void GetUserByNo_Test_Successed()
         {
             var expected = testItems[1];
@@ -63,7 +68,7 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.AreEqual(expected.UserNo, actualResult.Content.UserNo);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetUserByNo_Test_Not_Found()
         {
             var expected = "999";
@@ -73,7 +78,7 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.IsInstanceOfType(actual, typeof(NotFoundResult));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetUserByNo_Test_Bad_Request_With_Message_When_Args_Is_Empty()
         {
             var expected = string.Empty;
@@ -83,7 +88,7 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.IsInstanceOfType(actual, typeof(BadRequestErrorMessageResult));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetUserByName_Test_Successed_When_Single_Matched()
         {
             var expected = testItems[1];
@@ -97,7 +102,7 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.AreEqual(expected.UserName, actualResult.Content.FirstOrDefault().UserName);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetUserByName_Test_Successed_When_Multiple_Matched()
         {
             var expected = "test";
@@ -110,7 +115,7 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.AreEqual(testItems.Count, actualResult.Content.Count());
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetUserByName_Test_Successed_When_Zero_Matched()
         {
             var expected = "999";
@@ -123,7 +128,7 @@ namespace Examples.WebApi.Controllers.Tests
             Assert.AreEqual(0, actualResult.Content.Count());
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetUserByName_Test_Bad_Request_With_Message_When_Args_Is_Empty()
         {
             var expected = string.Empty;
@@ -131,6 +136,89 @@ namespace Examples.WebApi.Controllers.Tests
             var actual = controller.GetUserByName(expected).Result;
             Assert.IsNotNull(actual);
             Assert.IsInstanceOfType(actual, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void PostUser_Test_Successed()
+        {
+            var expected = new UserDto
+            {
+                UserNo = "999",
+                UserName = "test-user"
+            };
+
+            mockUserRepo.Setup(m => m.Create()).Returns(() => new UserEntity { });
+            mockUserRepo.Setup(m => m.Insert(It.IsAny<UserEntity>())).Returns(() => 1);
+
+            var actual = controller.PostUser(expected).Result;
+            Assert.IsNotNull(actual);
+
+            var actualResult = actual as CreatedAtRouteNegotiatedContentResult<int>;
+            Assert.IsNotNull(actualResult);
+            Assert.AreEqual(1, actualResult.Content);
+            Assert.AreEqual(expected.UserNo, actualResult.RouteValues[nameof(expected.UserNo)]);
+        }
+
+        [TestMethod]
+        public void PostUser_Test_Bad_Request_With_Message_When_Args_Is_Null()
+        {
+            UserDto expected = null;
+
+            var actual = controller.PostUser(expected).Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(BadRequestErrorMessageResult));
+        }
+
+        [TestMethod]
+        public void PostUser_Test_Exception()
+        {
+            var expected = new UserDto { };
+
+            mockUserRepo.Setup(m => m.Create()).Returns(() => new UserEntity { });
+            mockUserRepo.Setup(m => m.Insert(It.IsAny<UserEntity>())).Callback(() =>
+            {
+                throw new Exception("mock test");
+            });
+
+            var actual = controller.PostUser(expected).Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(ExceptionResult));
+        }
+
+        [TestMethod]
+        public void PostUser_Test_Db_Update_Exception()
+        {
+            var expected = new UserDto { };
+
+            mockUserRepo.Setup(m => m.Create()).Returns(() => new UserEntity { });
+            mockUserRepo.Setup(m => m.Insert(It.IsAny<UserEntity>())).Callback(() =>
+            {
+                throw new DbUpdateException("mock test");
+            });
+
+            var actual = controller.PostUser(expected).Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(ExceptionResult));
+        }
+
+        [TestMethod]
+        public void PostUser_Test_Db_Update_Exception_When_Conflict()
+        {
+            var expected = new UserDto
+            {
+                UserNo = testItems[1].UserNo,
+                UserName = testItems[1].UserName
+            };
+
+            mockUserRepo.Setup(m => m.Create()).Returns(() => new UserEntity { });
+            mockUserRepo.Setup(m => m.Insert(It.IsAny<UserEntity>())).Callback(() =>
+            {
+                throw new DbUpdateException("mock test");
+            });
+
+            var actual = controller.PostUser(expected).Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(ConflictResult));
         }
     }
 }
