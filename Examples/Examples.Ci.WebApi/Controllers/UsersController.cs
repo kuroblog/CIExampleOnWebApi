@@ -6,6 +6,7 @@ namespace Examples.Ci.WebApi.Controllers
     using Models;
     using System;
     using System.Data.Entity.Infrastructure;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Examples.Ci.WebApi.Controllers
     public class UsersController : ApiController
     {
         #region IDisposable Implements
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -44,7 +46,7 @@ namespace Examples.Ci.WebApi.Controllers
             {
                 return InternalServerError(result.Error);
             }
-            else if (result.Content == null || result.Content.Count() <= 0)
+            else if (result.Content.Count() <= 0)
             {
                 return NotFound();
             }
@@ -71,7 +73,7 @@ namespace Examples.Ci.WebApi.Controllers
             {
                 return InternalServerError(result.Error);
             }
-            else if (result.Content == null || result.Content.Count() <= 0)
+            else if (result.Content.Count() <= 0)
             {
                 return NotFound();
             }

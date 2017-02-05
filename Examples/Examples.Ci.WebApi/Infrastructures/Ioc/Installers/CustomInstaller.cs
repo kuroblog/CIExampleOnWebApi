@@ -7,7 +7,9 @@ namespace Examples.Ci.WebApi.Infrastructures.Ioc.Installers
     using Ef;
     using Ef.Repositories;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class CustomInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)

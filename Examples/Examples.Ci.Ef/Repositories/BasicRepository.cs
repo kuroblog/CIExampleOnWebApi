@@ -4,6 +4,7 @@ namespace Examples.Ci.Ef.Repositories
     using Core.Infrastructures;
     using System;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     public interface IBasicRepository<TEntity> where TEntity : IBasicEntity, new()
@@ -25,6 +26,8 @@ namespace Examples.Ci.Ef.Repositories
         int Update(TEntity entity, params object[] keys);
     }
 
+    //TODO: unit test
+    [ExcludeFromCodeCoverage]
     public class BasicRepository<TEntity> : IDisposable, IBasicRepository<TEntity> where TEntity : class, IBasicEntity, new()
     {
         #region IDisposable Implements

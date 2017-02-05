@@ -5,9 +5,9 @@ namespace Examples.Ci.Ef.Entities
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Diagnostics.CodeAnalysis;
 
-    //[Table("t_users"), ExcludeFromCodeCoverage]
-    [Table("t_users")]
+    [Table("t_users"), ExcludeFromCodeCoverage]
     public class UserEntity : IBasicEntity
     {
         #region IBasicEntity Implements

@@ -113,6 +113,21 @@ namespace Examples.Ci.WebApi.Controllers.Tests
         }
 
         [TestMethod]
+        public void GetUsersByName_Test_Exception()
+        {
+            var expected = "999";
+
+            mockUserRepo.Setup(m => m.View).Callback(() =>
+            {
+                throw new Exception("mock test");
+            });
+
+            var actual = controller.GetUsersByName(expected).Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(ExceptionResult));
+        }
+
+        [TestMethod]
         public void GetUsersByName_Test_Bad_Request_With_Message_When_Args_Is_Empty()
         {
             var expected = string.Empty;
@@ -145,6 +160,21 @@ namespace Examples.Ci.WebApi.Controllers.Tests
             var actual = controller.GetUserByNo(expected).Result;
             Assert.IsNotNull(actual);
             Assert.IsInstanceOfType(actual, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void GetUserByNo_Test_Exception()
+        {
+            var expected = "999";
+
+            mockUserRepo.Setup(m => m.View).Callback(() =>
+            {
+                throw new Exception("mock test");
+            });
+
+            var actual = controller.GetUserByNo(expected).Result;
+            Assert.IsNotNull(actual);
+            Assert.IsInstanceOfType(actual, typeof(ExceptionResult));
         }
 
         [TestMethod]

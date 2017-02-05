@@ -3,7 +3,9 @@ namespace Examples.Ci.Ef
 {
     using Entities;
     using System.Data.Entity;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public class CiContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.

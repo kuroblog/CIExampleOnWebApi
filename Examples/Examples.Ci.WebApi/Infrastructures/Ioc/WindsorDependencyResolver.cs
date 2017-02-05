@@ -2,8 +2,10 @@
 namespace Examples.Ci.WebApi.Infrastructures.Ioc
 {
     using Castle.MicroKernel;
+    using System.Diagnostics.CodeAnalysis;
     using Ms = System.Web.Http.Dependencies;
 
+    [ExcludeFromCodeCoverage]
     public class WindsorDependencyResolver : WindsorDependencyScop, Ms.IDependencyResolver
     {
         #region WindsorDependencyScop Implements

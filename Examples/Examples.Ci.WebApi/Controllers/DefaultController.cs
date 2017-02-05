@@ -2,9 +2,11 @@
 namespace Examples.Ci.WebApi.Controllers
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using System.Web.Http;
 
+    [ExcludeFromCodeCoverage]
     public class DefaultController : ApiController
     {
         [HttpGet]
