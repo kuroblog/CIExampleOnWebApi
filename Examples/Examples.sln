@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.WebApi", "Examples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.WebApi.Tests", "Examples.WebApi.Tests\Examples.WebApi.Tests.csproj", "{DA27BA33-71FE-46CA-A64B-1E40F8933138}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ver.1", "Ver.1", "{9F07AF0E-4A83-452A-B197-007D060ADCDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{052D37AC-7516-4059-A7CE-AE14F319E940} = {9F07AF0E-4A83-452A-B197-007D060ADCDB}
+		{DA27BA33-71FE-46CA-A64B-1E40F8933138} = {9F07AF0E-4A83-452A-B197-007D060ADCDB}
 	EndGlobalSection
 EndGlobal
