@@ -1,11 +1,11 @@
+
 namespace Examples.Ci.Ef.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using System.Diagnostics.CodeAnalysis;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Examples.Ci.Ef.CiContext>
+    [ExcludeFromCodeCoverage]
+    public sealed class Configuration : DbMigrationsConfiguration<CiContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace Examples.Ci.Ef.Migrations
             ContextKey = "Examples.Ci.Ef.CiContext";
         }
 
-        protected override void Seed(Examples.Ci.Ef.CiContext context)
+        protected override void Seed(CiContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -12,30 +12,30 @@ namespace Examples.Ci.WebApi.Tests.Controllers.Func
     public class UsersController_Func_Tests
     {
         #region Initialize
-        [TestInitialize]
-        public void Initialize()
-        {
-            var contextInitializer = new DropCreateDatabaseAlways<CiContext>();
-            Database.SetInitializer(contextInitializer);
+        //[TestInitialize]
+        //public void Initialize()
+        //{
+        //    var contextInitializer = new DropCreateDatabaseAlways<CiContext>();
+        //    Database.SetInitializer(contextInitializer);
 
-            client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:51547/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
+        //    client = new HttpClient();
+        //    client.BaseAddress = new Uri("http://localhost:51547/");
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //}
 
-        private HttpClient client;
-        #endregion
+        //private HttpClient client;
+        //#endregion
 
-        #region GetUsers
-        [TestMethod]
-        public async void GetUsers_Func_Test_Successed()
-        {
-            var response = await client.GetAsync("api/users");
-            response.EnsureSuccessStatusCode();
+        //#region GetUsers
+        //[TestMethod]
+        //public async void GetUsers_Func_Test_Successed()
+        //{
+        //    var response = await client.GetAsync("api/users");
+        //    response.EnsureSuccessStatusCode();
 
-            //var products = await response.Content.ReadAsAsync<IEnumerable<Product>>();
-        }
+        //    //var products = await response.Content.ReadAsAsync<IEnumerable<Product>>();
+        //}
 
         //[TestMethod]
         //public void GetUsers_Test_Not_Found()

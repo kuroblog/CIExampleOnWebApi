@@ -108,10 +108,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\Ioc\BootstrapContainer.cs" />
-    <Compile Include="Infrastructures\Ioc\Installers\ApiControllerInstaller.cs" />
-    <Compile Include="Infrastructures\Ioc\Installers\CustomInstaller.cs" />
-    <Compile Include="Infrastructures\Ioc\WindsorDependencyResolver.cs" />
-    <Compile Include="Infrastructures\Ioc\WindsorDependencyScop.cs" />
+    <Compile Include="Infrastructures\Ioc\DependencyInstaller.cs" />
+    <Compile Include="Infrastructures\Ioc\DependencyResolver.cs" />
+    <Compile Include="Infrastructures\Ioc\DependencyScop.cs" />
     <Compile Include="Models\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
