@@ -10,7 +10,7 @@ namespace Examples.Ci.Ef.Entities
     [Table("t_users"), ExcludeFromCodeCoverage]
     public class UserEntity : IBasicEntity
     {
-        #region IBasicEntity Implements
+        #region IBasicEntity
         [Column("id"), Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 

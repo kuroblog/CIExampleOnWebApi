@@ -1,7 +1,9 @@
 ﻿
 namespace Examples.Ci.WebApi
 {
+    using Ef;
     using Infrastructures.Ioc;
+    using System.Data.Entity;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
 
@@ -10,9 +12,11 @@ namespace Examples.Ci.WebApi
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CiContext, Ef.Migrations.Configuration>());
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            GlobalConfiguration.Configuration.DependencyResolver = new WindsorDependencyResolver(BootstrapContainer.Container.Kernel);
+            GlobalConfiguration.Configuration.DependencyResolver = new DependencyResolver(BootstrapContainer.Container.Kernel);
         }
     }
 }

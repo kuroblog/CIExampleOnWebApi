@@ -14,7 +14,7 @@ namespace Examples.Ci.WebApi.Controllers
 
     public class UsersController : ApiController
     {
-        #region IDisposable Implements
+        #region IDisposable
         [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {

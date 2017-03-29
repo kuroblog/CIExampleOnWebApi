@@ -16,12 +16,14 @@ namespace Examples.Ci.Ef
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
 
 #if DEBUG
-        private const string connectionStringKey = "CiContextDevKey";
+        private const string contextStringKey = "CiContextDevKey";
 #else
-        private const string connectionStringKey = "CiContextProdKey";
+        private const string contextStringKey = "CiContextProdKey";
 #endif
 
-        public CiContext() : base($"name={connectionStringKey}") { }
+        public CiContext() : base($"name={contextStringKey}") { }
+
+        public CiContext(string nameOrConnectionString = contextStringKey) : base(nameOrConnectionString) { }
 
         public DbSet<UserEntity> Users { get; set; }
     }

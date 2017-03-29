@@ -30,7 +30,7 @@ namespace Examples.Ci.Ef.Repositories
     [ExcludeFromCodeCoverage]
     public class BasicRepository<TEntity> : IDisposable, IBasicRepository<TEntity> where TEntity : class, IBasicEntity, new()
     {
-        #region IDisposable Implements
+        #region IDisposable
         //[ExcludeFromCodeCoverage]
         protected virtual void Dispose(bool disposing)
         {
@@ -48,7 +48,7 @@ namespace Examples.Ci.Ef.Repositories
         }
         #endregion
 
-        #region IBasicRepository Implements
+        #region IBasicRepository
         public IQueryable<TEntity> View
         {
             get { return context.Set<TEntity>(); }

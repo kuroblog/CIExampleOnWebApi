@@ -102,18 +102,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\InstallerPriorityAttribute.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructures\BootstrapInstaller.cs" />
     <Compile Include="Infrastructures\Ioc\BootstrapContainer.cs" />
-    <Compile Include="Infrastructures\Ioc\Installers\ApiControllerInstaller.cs" />
-    <Compile Include="Infrastructures\Ioc\Installers\CustomInstaller.cs" />
-    <Compile Include="Infrastructures\Ioc\WindsorDependencyResolver.cs" />
-    <Compile Include="Infrastructures\Ioc\WindsorDependencyScop.cs" />
+    <Compile Include="Infrastructures\DependencyInstaller.cs" />
+    <Compile Include="Infrastructures\Ioc\DependencyResolver.cs" />
+    <Compile Include="Infrastructures\Ioc\DependencyScop.cs" />
+    <Compile Include="Infrastructures\Ioc\WindsorInstallerBootstrap.cs" />
+    <Compile Include="Infrastructures\TestInstaller.cs" />
+    <Compile Include="Infrastructures\UserInstaller.cs" />
     <Compile Include="Models\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

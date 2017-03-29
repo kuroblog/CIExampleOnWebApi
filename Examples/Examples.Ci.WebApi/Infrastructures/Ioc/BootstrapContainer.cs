@@ -12,7 +12,13 @@ namespace Examples.Ci.WebApi.Infrastructures.Ioc
 
         static BootstrapContainer()
         {
-            Container = new WindsorContainer().Install(FromAssembly.This());
+            #region code examples
+            // default install
+            //Container = new WindsorContainer().Install(FromAssembly.This());
+            #endregion
+
+            // using install by priority
+            Container = new WindsorContainer().Install(FromAssembly.This(new WindsorInstallerBootstrap()));
         }
     }
 }

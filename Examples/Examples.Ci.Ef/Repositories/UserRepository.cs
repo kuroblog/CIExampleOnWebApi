@@ -9,7 +9,7 @@ namespace Examples.Ci.Ef.Repositories
 
     public class UserRepository : BasicRepository<UserEntity>, IUserRepository
     {
-        #region BasicRepository Implements
+        #region BasicRepository
         [ExcludeFromCodeCoverage]
         public UserRepository(DbContext db) : base(db) { }
         #endregion

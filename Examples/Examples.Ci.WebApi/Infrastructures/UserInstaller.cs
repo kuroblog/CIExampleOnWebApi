@@ -1,5 +1,5 @@
 ﻿
-namespace Examples.Ci.WebApi.Infrastructures.Ioc.Installers
+namespace Examples.Ci.WebApi.Infrastructures
 {
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
@@ -10,18 +10,20 @@ namespace Examples.Ci.WebApi.Infrastructures.Ioc.Installers
     using System.Diagnostics.CodeAnalysis;
 
     [ExcludeFromCodeCoverage]
-    public class CustomInstaller : IWindsorInstaller
+    public class UserInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            #region code examples
             //container.Register(Component.For<IMessages>().ImplementedBy<Messages>().LifestylePerWebRequest());
             //container.Register(Component.For<IMessages>().ImplementedBy<Messages>().LifestyleSingleton());
 
             //container.Register(Component.For<DbContext>().ImplementedBy<ExampleDbContext>().LifestylePerWebRequest());
             //container.Register(Component.For<DbContext>().ImplementedBy<ExampleDbContext>().LifestyleTransient());
-            container.Register(Component.For<DbContext>().ImplementedBy<CiContext>().LifestyleSingleton());
+            #endregion
 
-            container.Register(Component.For<IUserRepository>().ImplementedBy<UserRepository>().LifestyleTransient());
+            container.Register(Component.For<DbContext>().ImplementedBy<CiContext>().LifestylePerWebRequest());
+            container.Register(Component.For<IUserRepository>().ImplementedBy<UserRepository>().LifestylePerWebRequest());
         }
     }
 }

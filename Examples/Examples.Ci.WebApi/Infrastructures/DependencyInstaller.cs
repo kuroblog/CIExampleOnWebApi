@@ -1,18 +1,18 @@
 ﻿
-namespace Examples.Ci.WebApi.Infrastructures.Ioc.Installers
+namespace Examples.Ci.WebApi.Infrastructures
 {
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using System.Diagnostics.CodeAnalysis;
-    using System.Web.Http;
+
 
     [ExcludeFromCodeCoverage]
-    public class ApiControllerInstaller : IWindsorInstaller
+    public class DependencyInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly().BasedOn<ApiController>().LifestyleTransient());
+            // TODO: injection object in this
         }
     }
 }
