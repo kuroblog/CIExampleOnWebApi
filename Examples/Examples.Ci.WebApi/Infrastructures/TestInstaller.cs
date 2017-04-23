@@ -5,9 +5,7 @@ namespace Examples.Ci.WebApi.Infrastructures
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Controllers;
-    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
-    using Utils;
 
     [ExcludeFromCodeCoverage]
     public class TestInstaller : IWindsorInstaller
@@ -30,10 +28,13 @@ namespace Examples.Ci.WebApi.Infrastructures
             //}).LifestylePerWebRequest());
             #endregion
 
-            var settings = container.Resolve<ISettings>();
-            Debug.WriteLine(settings);
+            #region enable priority from ioc
+            //var settings = container.Resolve<Utils.ISettings>();
+            //System.Diagnostics.Debug.WriteLine(settings);
+            //container.Register(Component.For<ITest>().ImplementedBy<Test>().DependsOn(Dependency.OnValue("message", settings.DefaultConnectionString)).LifestylePerWebRequest());
+            #endregion
 
-            container.Register(Component.For<ITest>().ImplementedBy<Test>().DependsOn(Dependency.OnValue("message", settings.DefaultConnectionString)).LifestylePerWebRequest());
+            container.Register(Component.For<ITest>().ImplementedBy<Test>().LifestylePerWebRequest());
         }
     }
 }

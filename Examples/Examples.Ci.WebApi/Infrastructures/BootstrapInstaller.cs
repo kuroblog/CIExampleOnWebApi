@@ -1,7 +1,6 @@
 ﻿
 namespace Examples.Ci.WebApi.Infrastructures
 {
-    using Attributes;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
@@ -9,7 +8,12 @@ namespace Examples.Ci.WebApi.Infrastructures
     using System.Web.Http;
     using Utils;
 
-    [InstallerPriority(0), ExcludeFromCodeCoverage]
+    #region enable priority from ioc
+    //using Attributes;
+    //[Attributes.InstallerPriority(0), ExcludeFromCodeCoverage]
+    #endregion
+
+    [ExcludeFromCodeCoverage]
     public class BootstrapInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)

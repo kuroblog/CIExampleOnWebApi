@@ -1,19 +1,29 @@
 ﻿
 namespace Examples.Ci.WebApi.Controllers
 {
+    using Castle.MicroKernel;
+    using Infrastructures.Ioc;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Utils;
 
     [ExcludeFromCodeCoverage]
     public class TestController : ApiController
     {
         private readonly ITest test;
 
-        public TestController(ITest test)
+        #region enable priority from ioc
+        //public TestController(ITest test)
+        //{
+        //    this.test = test;
+        //}
+        #endregion
+
+        public TestController(ISettings settings)
         {
-            this.test = test;
+            test = BootstrapContainer.Container.Resolve<ITest>(new Arguments(new { message = settings.DefaultConnectionString }));
         }
 
         [HttpGet]
